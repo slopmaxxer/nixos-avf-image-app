@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
 import io.mkg20001.nixosimage.R
+import io.mkg20001.nixosimage.install.InPlaceInstallMethod
 import io.mkg20001.nixosimage.ui.theme.NixosImageTheme
 
 @Composable
@@ -33,12 +36,23 @@ fun InstallComposable(install: InstallMagic) {
     val done = install.done.collectAsState().value
     val applicationContext = LocalContext.current.applicationContext
 
-    Column {
+    // Scrolls so the buttons stay reachable below long instructions on small screens
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Text(text = text, modifier = Modifier.fillMaxWidth().padding(12.dp))
         LinearProgressIndicator(progress = { progress.toFloat() / 100 }, modifier = Modifier.fillMaxWidth().padding(12.dp))
         Instructions(install.method.id)
         if (install.method.showOpenTerminalAgainBtn) {
-            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)) {
+                if (install.method == InPlaceInstallMethod) {
+                    Button(
+                        onClick = {
+                            InPlaceInstallMethod.copyCommand(applicationContext)
+                        },
+                        enabled = done,
+                    ) {
+                        Text(stringResource(R.string.copy_command))
+                    }
+                }
                 Button(
                     onClick = {
                         OpenTerminal(applicationContext)

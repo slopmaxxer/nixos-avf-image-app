@@ -6,6 +6,7 @@ import android.util.Log
 import com.topjohnwu.superuser.Shell
 import io.mkg20001.nixosimage.BuildConfig
 import io.mkg20001.nixosimage.R
+import io.mkg20001.nixosimage.data.GitHubReleaseAsset
 import io.mkg20001.nixosimage.extra.ExtraImageUtils
 import io.sentry.Sentry
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,10 +35,12 @@ object MagiskInstallMethod: ImageInstallMethod {
 
     override suspend fun installImage(
         context: Context,
-        image: File,
+        image: File?,
+        asset: GitHubReleaseAsset,
         assets: AssetManager,
         progress: MutableStateFlow<Int>
     ): Boolean {
+        val image = image!!
         val shell = Shell.getShell()
         if (!shell.isRoot) {
             Log.e("Magisk", "acquired shell is not root, giving up")

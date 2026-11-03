@@ -3,6 +3,8 @@ package io.mkg20001.nixosimage.ui.install
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
@@ -32,7 +34,10 @@ fun OpenTerminal(applicationContext: Context) {
         startActivity(applicationContext, intent, null)
     } catch (e: Exception) {
         e.printStackTrace()
-        // Handle the case when the target activity is not found or other issues
+        // Usually the Terminal isn't enabled in the developer options yet
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(applicationContext, R.string.toast_terminal_missing, Toast.LENGTH_LONG).show()
+        }
     }
 }
 
@@ -78,6 +83,22 @@ class InstallMagic(
             errorOut(error)
         }
 
+        if (!method.needsImage) {
+            updateStatus(R.string.install_step_preparing)
+            try {
+                if (method.installImage(applicationContext, null, asset, applicationContext.assets, _progress)) {
+                    installOK()
+                } else {
+                    installFail(R.string.install_err_script)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Sentry.captureException(e)
+                installFail(R.string.install_err_script)
+            }
+            return
+        }
+
         // TODO: include methods needing cleanup properly
         Log.i("Download", "Downloading image")
 
@@ -109,7 +130,7 @@ class InstallMagic(
             }
 
             try {
-                val success = method.installImage(applicationContext, file, applicationContext.assets, _progress)
+                val success = method.installImage(applicationContext, file, asset, applicationContext.assets, _progress)
 
                 if (success) {
                     installOK()

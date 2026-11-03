@@ -1,0 +1,8 @@
+- The install command was copied to the clipboard:
+  - `bash /mnt/shared/Download/nixos-avf/install.sh`
+- If the Terminal shows "Upgrade to newer terminal" from an earlier attempt, clear its storage first (Settings > Apps > Terminal > Storage & cache > Clear storage), then use "Open Terminal Again".
+- If you didn't install the Debian Terminal image yet, click Install once Terminal opens and wait until you get a prompt.
+- Give the Terminal at least 2 GB of memory in its settings. NixOS needs about 6 GB of disk.
+- Paste the command into the Terminal and press Enter. It downloads about 1 GB and takes a while; a log is written to `Download/nixos-avf/install.log`.
+- When it says "NixOS is installed", close the Terminal and open it again. You should have NixOS now (green prompt). Free the space of the old system with `sudo rm -rf /old-root`.
+- The app and the Terminal must run in the same user profile (not one in the private space and one outside it).

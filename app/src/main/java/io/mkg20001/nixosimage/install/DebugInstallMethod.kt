@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Environment
 import android.util.Log
 import io.mkg20001.nixosimage.R
+import io.mkg20001.nixosimage.data.GitHubReleaseAsset
 import io.mkg20001.nixosimage.data.copyFile
 import io.mkg20001.nixosimage.data.mkdirp
 import io.sentry.Sentry
@@ -37,10 +38,12 @@ object DebugInstallMethod: ImageInstallMethod {
 
     override suspend fun installImage(
         context: Context,
-        image: File,
+        image: File?,
+        asset: GitHubReleaseAsset,
         assets: AssetManager,
         progress: MutableStateFlow<Int>
     ): Boolean {
+        val image = image!!
         try {
             if (!mkdirp(getSdcardPathForTesting().toAbsolutePath().toString())) {
                 return false

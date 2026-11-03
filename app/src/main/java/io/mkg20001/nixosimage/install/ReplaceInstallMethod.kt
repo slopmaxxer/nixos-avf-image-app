@@ -6,6 +6,7 @@ import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import io.mkg20001.nixosimage.R
+import io.mkg20001.nixosimage.data.GitHubReleaseAsset
 import io.mkg20001.nixosimage.data.ProgressStream
 import io.mkg20001.nixosimage.data.mkdirp
 import kotlinx.coroutines.Dispatchers
@@ -64,10 +65,12 @@ object ReplaceInstallMethod: ImageInstallMethod {
 
     override suspend fun installImage(
         context: Context,
-        image: File,
+        image: File?,
+        asset: GitHubReleaseAsset,
         assets: AssetManager,
         progress: MutableStateFlow<Int>
     ): Boolean {
+        val image = image!!
 
         val dir = getImageDownloadsDir()
         val altDir = getImageAlternateDir()

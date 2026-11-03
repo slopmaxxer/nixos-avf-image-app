@@ -13,6 +13,7 @@
     <string name="install_architecture">Architecture:</string>
     <string name="install_step_downloading">Downloading NixOS image</string>
     <string name="install_step_installing">Installing NixOS image</string>
+    <string name="install_step_preparing">Preparing the install script</string>
 
     <string name="menu_method">Method</string>
     <string name="menu_version">Version</string>
@@ -20,6 +21,7 @@
     <string name="method_magisk">Install using Magisk (untested)</string>
     <string name="method_debug">Install using Terminal Debug mode</string>
     <string name="method_replace">Install using replace script</string>
+    <string name="method_inplace">Install in place of Debian (Android 17)</string>
     <string name="no_method">[No install methods found]</string>
     <string name="install">Install</string>
     <string name="refresh">Refresh</string>
@@ -29,14 +31,18 @@
     <string name="toast_intent_error">Error during load of Intent!</string>
     <string name="format_version_info">%1$s (built %2$s, %3$s)</string>
     <string name="open_terminal_again">Open Terminal Again</string>
+    <string name="copy_command">Copy command</string>
+    <string name="toast_terminal_missing">Could not open the Terminal. Enable it in Settings > System > Developer options > Linux development environment</string>
 
     <string name="toast_external_storage">Please grant external storage for install and click "Install" again</string>
     <string name="toast_replace_script">Run in Terminal: bash /mnt/shared/image/replace.sh</string>
+    <string name="toast_inplace_command">Command copied. Paste it into the Terminal and press Enter</string>
 
     <string name="remove_existing_image">You may need to remove the existing installation using Settings > Recovery > Remove existing data</string>
 
     <string name="install_err_image">Failed to install image!</string>
     <string name="install_err_network">Failed to download image! Check your network connection or go back and use \"Refresh\" button!</string>
+    <string name="install_err_script">Failed to download the install script! Check your network connection and storage permission.</string>
 
     <string name="version">Version:</string>
 </resources>
