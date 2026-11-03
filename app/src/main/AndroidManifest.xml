@@ -34,6 +34,8 @@
     
         <!-- Required: set your sentry.io project identifier (DSN) -->
         <meta-data android:name="io.sentry.dsn" android:value="https://352df7df8d84fed093c35850262c5a72@o4509509771460608.ingest.de.sentry.io/4509509773557840" />
+        <!-- Fork: don't report to the upstream project's Sentry -->
+        <meta-data android:name="io.sentry.auto-init" android:value="false" />
 
         <!-- enable automatic breadcrumbs for user interactions (clicks, swipes, scrolls) -->
         <meta-data android:name="io.sentry.traces.user-interaction.enable" android:value="true" />

@@ -14,11 +14,12 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "io.mkg20001.nixosimage"
+        // Fork with Android 17 support: own id, so it installs next to the original app
+        applicationId = "io.github.slopmaxxer.nixosimage"
         minSdk = 35
         targetSdk = 36
-        versionCode = 10
-        versionName = "0.3.1"
+        versionCode = 11
+        versionName = "0.3.1-android17.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -133,5 +134,7 @@ sentry {
 
     // this will upload your source code to Sentry to show it as part of the stack traces
     // disable if you don't want to expose your sources
-    includeSourceContext.set(true)
+    // Fork: no access to the upstream Sentry project, upload nothing
+    includeSourceContext.set(false)
+    autoUploadProguardMapping.set(false)
 }
