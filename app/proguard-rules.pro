@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 -dontobfuscate
 -dontoptimize
+
+# Window manager extensions are provided by the device at runtime
+-dontwarn androidx.window.extensions.**
