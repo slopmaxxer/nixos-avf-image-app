@@ -18,8 +18,8 @@ android {
         applicationId = "io.github.slopmaxxer.nixosimage"
         minSdk = 35
         targetSdk = 36
-        versionCode = 11
-        versionName = "0.3.1-android17.1"
+        versionCode = 12
+        versionName = "0.3.1-android17.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -74,7 +74,9 @@ object InPlaceInstallMethod : ImageInstallMethod {
                     |# Written by the NixOS AVF image app: installs NixOS ${asset.version} in place of the
                     |# Terminal's Debian. Output is also logged to install.log next to this script.
                     |dir=${'$'}(dirname "${'$'}(readlink -f "${'$'}0")")
-                    |sudo NIXOS_CHANNEL=${channelFor(asset)} bash "${'$'}dir/install-in-place.sh" 2>&1 | tee "${'$'}dir/install.log"
+                    |# root gets "Operation not supported" opening files on the shared folder, so run a copy
+                    |cp "${'$'}dir/install-in-place.sh" ~/install-in-place.sh
+                    |sudo NIXOS_CHANNEL=${channelFor(asset)} bash ~/install-in-place.sh 2>&1 | tee "${'$'}dir/install.log"
                     |""".trimMargin()
                 )
                 progress.tryEmit(100)
